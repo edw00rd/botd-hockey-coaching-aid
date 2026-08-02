@@ -1,0 +1,665 @@
+BOTD HOCKEY COACHING AID — VERSION 3.4
+Creator: Nicholas Heller
+Release date: 2026-08-02
+
+OVERVIEW
+
+BOTD Hockey Coaching Aid is a standalone HTML5 tactics board for designing,
+drawing, animating, saving, and presenting hockey plays. It is intended for a
+Windows desktop browser with a mouse and for iPad use with touch or Apple
+Pencil. The application is contained in one HTML file and does not require an
+installation, account, external JavaScript library, server, or internet
+connection.
+
+Nicholas Heller is acknowledged in the HTML source and in this README as the
+creator of the application, its product concept, coaching workflow, and feature
+direction.
+
+PACKAGE CONTENTS
+
+1. BOTD_Hockey_Coaching_Aid_v3.4.html
+   The complete standalone application. BOTD artwork, rink graphics, audio
+   synthesis, sample rosters, default sample plays, display controls, and player
+   color data are embedded or generated within this file. No separate run-time
+   assets are required.
+
+2. BOTD_Hockey_Coaching_Aid_v3.4_Preview.png
+   A 1920 x 1080 desktop preview showing the collapsed Play Animator, persistent
+   bottom-toolbar playback dock, independent rink-token labels, and per-player
+   color controls in the roster editor.
+
+3. BOTD_Hockey_Coaching_Aid_v3.4_README.txt
+   Setup instructions, Version 3.4 release notes, operating guidance,
+   compatibility and storage notes, known limitations, verification details,
+   and the complete cumulative change history.
+
+RUNNING ON WINDOWS
+
+1. Extract the ZIP archive to a normal folder.
+2. Double-click BOTD_Hockey_Coaching_Aid_v3.4.html.
+3. Open it with a current version of Microsoft Edge, Google Chrome, or Firefox.
+4. A local file:/// address in the browser is expected. The application runs
+   locally and does not need a web server.
+
+Do not run the HTML directly from inside the ZIP archive. Extract it first so
+browser storage, image uploads, and file exports behave more consistently.
+
+RUNNING ON IPAD OR WITH APPLE PENCIL
+
+The board uses standard Pointer Events and supports touch, Apple Pencil, mouse,
+and trackpad input. For the most consistent iPad experience, place the same HTML
+file on a static HTTPS website, open it in Safari, and use Add to Home Screen.
+Opening a local HTML file directly from the Files app can depend on the file
+provider and the installed iPadOS version.
+
+VERSION 3.4 CHANGES
+
+PERSISTENT PLAYBACK DOCK
+
+When the Play Animator panel is collapsed on desktop, the essential playback
+controls remain in the bottom drawing toolbar immediately after the clear-mark
+X button. The compact dock contains:
+
+- Play / Stop;
+- restart from the beginning;
+- the reversible playback slider;
+- playback speed; and
+- a Recorded routes checkbox.
+
+The controls mirror the full Play Animator controls. A change made in either
+location is reflected in the other. Disabled states are also mirrored, so Play,
+Restart, the scrubber, and speed remain visibly unavailable until a completed
+turn exists.
+
+The Recorded routes checkbox uses the currently selected route mode. Turning it
+off hides routes. Turning it back on after Hidden was selected restores Ahead;
+erase behind. The full Play Animator panel still provides Show all, Ahead; erase
+behind, and Hidden choices.
+
+On iPad-sized and other narrow layouts, the Play Animator is an overlay drawer.
+The compact playback dock remains visible while that drawer is closed and hides
+while the drawer is open, preserving maximum rink space without losing playback
+access.
+
+INDEPENDENT RINK-TOKEN DISPLAY OPTIONS
+
+The former combined Show names, numbers & positions switch has been replaced by
+four independent checkboxes:
+
+- Names;
+- Numbers;
+- Positions; and
+- Leadership roles.
+
+Each option affects only rink tokens. Numbers appear in the token center, names
+appear below the token, positions appear in a small upper-right badge, and a
+captain C or alternate A appears in a separate upper-left badge. All four remain
+off by default to keep the board uncluttered.
+
+Version 3.3 plays that had the old combined label switch enabled migrate with
+Names, Numbers, and Positions enabled. Leadership remains independent and is
+not enabled automatically during that migration.
+
+PER-PLAYER COLORS
+
+Every roster player may now override the team's primary and trim colors.
+
+- New and existing players inherit the current team colors by default.
+- Primary and Trim color controls appear in every roster row.
+- Colors may be set before Load active players to benches is selected.
+- Colors may also be changed after a player has already been loaded, placed on
+  the ice, selected, or used as a line-change option.
+- Bench tokens, rink tokens, the selected-player token, and line-change tokens
+  update immediately.
+- Selecting Team removes both overrides and returns the player to the team's
+  current colors.
+- A player may override only one color; the other color continues following the
+  team setting.
+- Player color overrides persist in the browser, saved plays, playbooks, copied
+  turns, and JSON exports.
+
+Changing a team's colors continues to update every player who is inheriting
+those colors. Players with explicit overrides retain the overridden values.
+
+GITHUB PAGES UPDATE
+
+For an existing GitHub Pages repository, copy
+BOTD_Hockey_Coaching_Aid_v3.4.html over the repository's index.html file and
+commit the change. The hosted origin has its own browser storage. Export the
+playbook JSON from the older hosted version before replacing it when a portable
+backup is needed. Version 3.4 can migrate Version 3.3 storage when the site URL
+and browser origin remain unchanged.
+
+CONTINUED VERSION 3.3 AND EARLIER BEHAVIOR
+
+Version 3.4 retains dual action lanes, pass and shoot on the move, moving-
+receiver lead calculation, reversible scrubbing, restricted bank-pass routing,
+whole-ice default, portrait half ice, rounded rim shots, net-contained goals,
+GOAL! light and siren, loose goalie rebounds, reusable turns, BOTD Playbook
+samples, freehand drawing, local saving, and JSON import/export.
+
+VERSION 3.3 CHANGES
+
+DUAL ACTION LANES
+
+Each player may now have two independent action lanes in the same turn:
+
+- Skating lane: Move
+- Puck lane: Pass or Shoot
+
+A Line switch remains exclusive and replaces both lanes for that player. The
+turn may still contain several simultaneous Move actions, while one Pass or
+Shoot event is shared across the turn.
+
+This allows the puck carrier to:
+
+- skate and pass during the same turn;
+- skate and shoot during the same turn;
+- retain possession before the selected release time;
+- release the puck at a precise point on the skating route; and
+- continue skating after the puck leaves the stick.
+
+A moving receiver may also have a Move action in that turn. The pass endpoint is
+calculated against the receiver's timed route so the puck leads the receiver to
+an interception point instead of traveling to the receiver's original location.
+
+TIMED PASS AND SHOT RELEASE
+
+When a puck carrier has both a Move action and a Pass or Shoot action, Version
+3.3 exposes an editable release time.
+
+The release may be set in four ways:
+
+- choose At start;
+- choose At end;
+- preview the turn and choose Set from playhead;
+- drag the orange PASS or SHOT marker along the recorded skating route; or
+- drag the release-time range control in the selected-player card.
+
+The pass or shot dialog also includes a release-time control. A stationary
+player releases at the start of the turn because no skating timeline exists for
+that player.
+
+Changing or replacing the passer's Move route automatically recalculates the
+release source, pass timing, moving-receiver lead, bank eligibility, and puck
+trajectory. Changing the receiver's Move route also recalculates the lead pass.
+
+PASS-ON-THE-MOVE POSSESSION BEHAVIOR
+
+During a timed pass:
+
+- the carrier remains in possession until the release time;
+- the puck is loose while traveling;
+- the passer continues along the remaining Move route;
+- a moving receiver continues along that receiver's own Move route;
+- the receiver gains possession when an unobstructed pass arrives; and
+- a blocked pass finishes loose at the calculated impact point.
+
+Possession changes authored at the beginning of the turn still take priority.
+Changing possession away from the scheduled passer removes an invalid Pass or
+Shoot, as in earlier releases.
+
+RESTRICTED BANK-PASS SELECTION
+
+The direct pass is tested first. A bank pass is considered only when the direct
+lane is obstructed.
+
+For each candidate wall contact, Version 3.3 calculates:
+
+- L1: distance from the passer's release point to the wall contact; and
+- L2: distance from the wall contact to the receiver's predicted arrival point.
+
+A candidate bank is eligible only when L2 is less than or equal to L1. Among
+eligible, unobstructed candidates, the shortest total route is selected. If no
+candidate satisfies that rule, the app retains the straight pass attempt.
+
+When that retained straight pass intersects a player or goalie, it is recorded
+as a blocked pass and the puck remains loose at the impact point. This preserves
+the requested straight-pass fallback without allowing the puck to pass through
+the blocker and attach incorrectly to the receiver.
+
+For a moving receiver, L2 is measured to the calculated interception position,
+not to the receiver's starting position.
+
+BIDIRECTIONAL PLAYBACK SCRUBBING
+
+The playback range control is now a true reversible playhead.
+
+- Drag it to the right to move forward through the play.
+- Drag it to the left to reconstruct earlier player and puck states.
+- Player positions, line changes, possession, loose-puck location, pass and shot
+  flight, puck spin, route traces, and goal visuals are recomputed from the
+  authored turn data at the selected time.
+- Beginning a scrub pauses active playback so the animation does not fight the
+  pointer.
+- Scrubbing across a recorded goal displays the correct GOAL! visual state but
+  does not repeatedly replay the goal siren.
+- Normal forward playback still triggers the siren at the recorded goal time.
+
+CLEANER PLAYBACK VIEW
+
+Dotted player-selection outlines and turn-selection outlines are hidden while
+normal playback is running. They return when playback stops so the coach can
+continue editing. The outlines are also hidden while the timeline thumb is
+actively being dragged.
+
+CONTINUED VERSION 3.2 AND EARLIER BEHAVIOR
+
+Version 3.3 retains:
+
+- whole ice as the default fresh-board view;
+- portrait north-south half ice;
+- the BOTD center-ice tag and playbook image;
+- the BOTD Playbook and three default core plays;
+- blue/white DAWGS and white/red WILDCATS starter teams;
+- full funny-name rosters, captain and alternate profiles;
+- loose goalie rebounds;
+- goal detection, in-net puck containment, red goal lamps, GOAL! visual, and
+  local browser-generated siren;
+- rounded-corner rim-around shot paths;
+- spinning shots and saucer passes;
+- Ahead; erase behind as the default route mode;
+- collapsible left, right, and timeline panels;
+- local playbook saving and portable JSON import/export; and
+- mouse, touch, trackpad, and Apple Pencil input.
+
+BASIC WORKFLOW
+
+1. Open Teams to edit team names, colors, rink view, center logo, and playbook
+   image.
+2. Open Roster to edit number, name, position, goalie status, captain status,
+   alternate status, per-player primary and trim colors, and active-bench
+   membership.
+3. Select Load active players to benches after changing the active roster.
+4. Select a bench token to place that player on the ice. Drag the rink tokens to
+   establish the starting formation.
+5. Place the loose puck or assign possession to any on-ice player.
+6. Select New turn and include the players participating in that turn.
+7. Assign each participating player's Skating lane action.
+8. Assign the one puck event for that turn, when needed.
+9. For a moving passer or shooter, set the orange release marker or release-time
+   slider.
+10. Select Done turn and repeat for later turns.
+11. Press Play to review the sequence, or drag the playback slider in either
+   direction to inspect a particular moment. Collapse Play Animator when more
+   rink space is needed; the compact playback dock remains in the bottom
+   toolbar.
+12. Press Stop at any point and begin a new turn there to branch from that state.
+13. Name the playbook and play, then save locally or export JSON backups.
+
+PASSING ON THE MOVE — STEP BY STEP
+
+1. Give the intended passer possession.
+2. Select New turn.
+3. Include the passer, receiver, and any other moving players or defenders.
+4. Select the passer and record a Move route.
+5. Select the receiver and record the receiver's Move route, when applicable.
+6. Record the routes of other players acting in the turn.
+7. Select the passer and choose Pass.
+8. Select the intended receiver.
+9. Choose Flat pass or Saucer pass.
+10. Set the release time in the dialog, or add the pass and then drag the orange
+    marker on the passer's route.
+11. Preview the turn with the selected-player preview playhead when more precise
+    timing is needed.
+12. Select Done turn.
+13. Press Play or scrub the timeline. The puck stays with the carrier until the
+    release point, then leads the moving receiver.
+
+MOVING SHOT — STEP BY STEP
+
+1. Give the shooter possession.
+2. Start a turn and record the shooter's Move route.
+3. With that player still selected, choose Shoot.
+4. Select the target and power.
+5. Set the release time in the shot dialog or with the orange SHOT marker.
+6. Finish the turn.
+7. The skater moves with the puck, releases at the selected time, and continues
+   skating while the shot follows the Version 3.2/3.1 shot and goal physics.
+
+TIMELINE SCRUBBING AND BRANCHING
+
+- Dragging the slider automatically stops active playback.
+- The slider can be moved repeatedly forward and backward without modifying the
+  authored turns.
+- To branch, leave the playhead at the desired time, select a player, and choose
+  Start turn here or Turn from playhead.
+- A branch turn captures player locations, bench state, puck location, and
+  possession at that playhead time.
+- The GOAL! panel may appear while scrubbing through the short celebration
+  window. Audio is reserved for normal forward playback.
+
+SHOT, GOAL, BLOCK, AND RIM-AROUND WORKFLOW
+
+1. Give an on-ice player possession.
+2. Start or continue a turn and select that player.
+3. Select Shoot.
+4. Select a target on the rink.
+5. Choose power from 1 through 10.
+6. For a moving shooter, select the release point.
+7. To score, aim so the calculated path crosses the goal line through the
+   opening between the posts. The puck finishes inside the net.
+8. Complete the turn and press Play. At the recorded goal time, the red lamp,
+   GOAL! panel, rink pulse, and browser-generated siren activate.
+9. For a rim-around, choose a target at a shallow angle near the boards. The app
+   follows the rounded boundary while modeled energy remains.
+10. If the path intersects a skater or goalie before entering the net, the shot
+    is blocked, performs a short rebound, and ends loose.
+
+DRAWING CONTROLS
+
+- Select tool: select and reposition setup objects when editing is allowed.
+- Draw tool: draw with mouse, touch, or Apple Pencil.
+- Erase tool: cross a freehand stroke to remove the entire stroke.
+- Preset colors, a custom color, and adjustable line width are available.
+- Undo, redo, and clear-drawing controls affect coaching marks independently of
+  the animation timeline.
+
+TURN, POSSESSION, AND ROUTE CONTROLS
+
+- Several Move actions may run simultaneously in one turn.
+- A player may combine Move with Pass or Shoot.
+- One Pass or Shoot event is permitted in a turn.
+- Line switch is exclusive for the player being changed.
+- Possession may be assigned to any on-ice player, stolen from another player,
+  or released so the puck remains loose.
+- A possession change is stored as a turn event and reproduced in playback.
+- Canonical turns may be reused or copied and edited.
+- Route modes are Show all, Ahead; erase behind, and Hidden.
+- The left setup panel, right Play Animator panel, and turn timeline may be
+  collapsed to create more rink space.
+- When Play Animator is hidden, playback, scrubbing, speed, and route visibility
+  remain available in the bottom-toolbar dock.
+- Names, numbers, positions, and leadership badges may be shown independently on
+  rink tokens.
+- Each player may inherit team colors or use individual primary and trim color
+  overrides.
+- Half ice is oriented north-south and fills the available portrait space.
+
+TEAM PLAYBOOK AND FILES
+
+- Plays are stored locally in browser localStorage when available.
+- Save play updates the current saved play. Save copy creates another entry.
+- Export downloads one portable .hockeyplay.json file.
+- Export playbook downloads the complete named playbook as JSON.
+- Import accepts compatible play and playbook JSON from earlier builds.
+- Clearing browser site data can remove local saves. Export important work.
+- The three sample plays are normal playbook entries and may be changed or
+  deleted by the user.
+
+STORAGE MIGRATION
+
+Version 3.4 uses the following storage namespaces:
+
+- botdHockeyCoachingAid.session.v3_4
+- botdHockeyCoachingAid.playbook.v3_4
+
+When a Version 3.4 record does not yet exist, the app checks Version 3.3 first,
+then Version 3.2, Version 3.1, Version 3.0, Version 0.2.1, Version 0.2, and
+Version 0.1 records. Existing playbook entries are retained, and missing BOTD
+core samples are appended without replacing an entry with the same identifier
+or title.
+
+Older storage records are not overwritten. Version 3.4 autosaves later work
+under its own keys. Portable JSON files from earlier releases may also be
+imported. Version 3.3's combined label state is normalized into the independent
+Version 3.4 display options, and players without color overrides continue to
+inherit team colors. Export important playbooks before clearing browser site
+data.
+
+PRIVACY AND NETWORK USE
+
+- The application makes no network requests.
+- There are no analytics, accounts, trackers, advertisements, or cloud APIs.
+- Uploaded logos are resized and processed locally in the browser.
+- Default BOTD images are embedded inside the HTML file.
+- Plays remain in the selected browser unless the user exports them.
+
+COMPATIBILITY
+
+Recommended desktop browsers:
+
+- Microsoft Edge, current release
+- Google Chrome, current release
+- Mozilla Firefox, current release
+
+The same standards-based code path is used by Safari. Browser handling of local
+HTML files and localStorage can differ, especially on mobile devices.
+
+VERSION 3.4 TECHNICAL NOTES AND KNOWN LIMITATIONS
+
+- The compact dock provides a route on/off checkbox. Select the exact Show all
+  or Ahead; erase behind mode in the full Play Animator panel.
+- On very narrow screens, the bottom toolbar remains horizontally scrollable.
+  The playback dock is kept at the right edge while the Play Animator drawer is
+  closed.
+- Per-player colors are visual overrides only. They do not create additional
+  teams or alter collision, possession, bench, or line-change rules.
+- Names, numbers, positions, and leadership choices control rink-token display.
+  Bench cards and editing panels continue to show identity information needed
+  to select the correct player.
+- A player may have one Skating lane action and one Puck lane action in a turn.
+  A second Pass or Shoot must be authored in the next turn.
+- Catch-and-shoot, pass-pass, or touch-pass sequences use successive turns.
+- A release marker exists only when the puck carrier has a recorded Move route.
+  Stationary Pass and Shoot actions release at the start of the turn.
+- Moving-receiver interception is solved iteratively from the passer's timed
+  release position, puck speed, route length, and receiver route. The result is
+  tuned for coaching visualization rather than laboratory ballistics.
+- Moving-player pass obstruction is sampled at short intervals along the puck
+  route. Extremely brief contacts between samples are theoretically possible.
+- A retained straight pass that is blocked stops at an approximated contact
+  point and leaves the puck loose. The app does not yet model a detailed pass
+  deflection, stick angle, possession battle, or whistle after that contact.
+- Pass bank selection uses a single wall contact and the L2 <= L1 rule. Passes do
+  not yet ride the curved corners in the way that rim-around shots can.
+- Shot collision checks against moving skaters use the authored turn state and
+  release-time setup; they are not a continuous rigid-body solver.
+- Goal physics do not separately simulate posts, crossbars, net mesh
+  deformation, disputed goals, video review, or pucks wedged outside the net.
+- Rounded shot boards use a densely sampled geometric boundary rather than a
+  full material-contact simulation.
+- Puck speed, energy retention, spin, rebound distance, and board travel are
+  tuned for readable tactics instruction.
+- A blocked shot or pass becomes loose. Recovery, a goalie cover, or another
+  possession outcome is authored in the next turn.
+- Web Audio depends on browser policy and device support. Muted tabs, silent
+  mode, or unsupported browsers may suppress sound while visual goal feedback
+  remains.
+- The captain role is limited to one player per team. Multiple alternates are
+  permitted.
+
+RELEASE VERIFICATION
+
+The Version 3.4 standalone build was exercised in desktop Chromium at
+1920 x 1080, 1600 x 900, 1366 x 768, and an iPad-sized 1024 x 768 viewport for:
+
+- Version 3.4 identity and JavaScript syntax;
+- collapsed desktop Play Animator with the playback dock visible after the
+  drawing clear X;
+- mobile overlay behavior with the dock visible while Play Animator is closed
+  and hidden while that drawer is open;
+- enabled and disabled Play, Restart, slider, and speed states mirrored from the
+  full Play Animator controls;
+- Play / Stop, Restart, speed, and bidirectional scrub actions initiated from
+  the compact dock;
+- Recorded routes off and restoration to Ahead; erase behind;
+- four independent Names, Numbers, Positions, and Leadership checkboxes;
+- number, name, position, captain, and alternate SVG output independently
+  enabled and disabled;
+- custom primary and trim colors applied before and after bench loading;
+- immediate updates to roster, bench, rink, selected-player, turn-participant,
+  and line-change tokens;
+- Team reset returning a player to inherited colors;
+- Version 3.3 combined-label migration and persistence of custom player colors
+  through state normalization;
+- all three default BOTD playbook samples and existing Version 3.3 animation
+  behavior;
+- desktop and narrow-layout toolbar fit;
+- runtime exceptions and console errors unrelated to the intentionally
+  storage-disabled automated document harness; and
+- PNG preview dimensions and ZIP compressed-file integrity.
+
+All listed release checks passed in the release environment.
+
+COMPLETE VERSION HISTORY
+
+VERSION 0.1 — INITIAL STANDALONE HTML5 MVP
+
+- Created a standalone single-file HTML application for desktop browsers.
+- Added whole-ice and half-ice rink backgrounds.
+- Added editable team names, primary colors, and trim colors.
+- Added uploadable center-ice and Team Playbook images.
+- Added editable rosters with optional number, name, position, goalie status,
+  and active-player selection.
+- Added distinct skater and goalie tokens.
+- Added team benches and placement of active players onto the rink.
+- Added explicit puck-possession state.
+- Added sequential Move, Pass, Shoot, and Line switch actions.
+- Captured Move timing from the speed used to draw each skating path.
+- Added global playback-speed controls.
+- Added flat and saucer passes with automatic duration and receiver attachment.
+- Added direct-lane obstruction checks and best-available single-bank pass
+  routing around players, goalies, boards, and nets.
+- Made shots stop at the first intersected player; goalie contact attached the
+  puck to the goalie in this original release.
+- Added freehand multicolor drawing, adjustable width, undo, redo, whole-stroke
+  erasing, and clear-all.
+- Added browser-local Team Playbook saving and portable JSON import/export.
+- Added mouse, touch, and Apple Pencil Pointer Events support.
+
+VERSION 0.2 — TURN-BASED ANIMATION AND WORKSPACE REDESIGN
+
+- Added two complete 20-player sample rosters with funny names, numbers,
+  positions, and two goalies per team.
+- Hid player labels on rink tokens by default.
+- Added collapsible left setup drawer, right Play Animator drawer, and animation
+  timeline.
+- Reworked half ice into a north-south portrait presentation.
+- Added a turn builder for simultaneous player actions.
+- Allowed multiple players to Move during the same turn while a Pass or Shoot
+  ran.
+- Added moving-receiver lead calculation for passes.
+- Added Stop-at-playhead editing and alternate outcome branching.
+- Added canonical reusable turns such as T1, T2, T3, T1, T2, T4.
+- Added Reuse and Copy & edit controls for turns.
+- Added route modes for Show all, Ahead; erase behind, and Hidden.
+- Allowed a loose puck to be dragged to a starting location before animation.
+- Reserved incoming line-change players to prevent duplicate simultaneous
+  substitutions.
+- Added normalization of Version 0.1 JSON data into the turn format.
+
+VERSION 0.2.1 — POSSESSION PATCH AND LARGER HALF ICE
+
+- Allowed possession to change while a turn was being built.
+- Allowed any on-ice player to take or steal the puck.
+- Added Make loose so the puck could remain unpossessed between turns.
+- Made a possession-only turn valid.
+- Enabled Pass and Shoot immediately for the new carrier.
+- Removed an invalid Pass or Shoot automatically if possession changed.
+- Stored possession changes as turn events for playback, copying, reuse,
+  playbook saving, and JSON export/import.
+- Recalculated portrait half ice from live workspace dimensions and expanded it
+  to the maximum practical height.
+- Refit half ice after window resizing and drawer changes.
+
+VERSION 3.0 — BOTD BRANDING, NAMED PLAYBOOKS, AND PUCK PHYSICS
+
+- Renamed the product BOTD Hockey Coaching Aid.
+- Acknowledged Nicholas Heller as creator in source notes and metadata.
+- Added the supplied BOTD default center-ice and playbook artwork.
+- Added custom playbook naming and name-aware export behavior.
+- Changed the starting teams to blue/white DAWGS and white/red WILDCATS.
+- Added spinning shot and saucer-puck visuals.
+- Added timed shot trajectories, motion streaks, skater block rebounds, goalie
+  saves, flat-board reflections, angle-dependent energy retention,
+  power-dependent travel, and multi-board ricochet support.
+- Extended collision checks over post-board shot paths.
+- Removed the player-deletion confirmation prompt.
+- Changed release packaging to a TXT README with the full cumulative history.
+
+VERSION 3.1 — LOOSE GOALIE REBOUNDS, ROUNDED RIMS, AND CORE PLAYBOOK
+
+- Changed goalie shot contact from automatic possession to a loose-puck block
+  with a visible rebound.
+- Added rounded-board tracks and corner-following rim-around shot physics.
+- Kept steep-angle impacts as reflected banks.
+- Added captain and alternate-captain toggles, persistence, and selection-card
+  badges.
+- Made Ahead; erase behind the default route mode for new boards and samples.
+- Named the default collection BOTD Playbook.
+- Seeded three three-turn core plays: whole-ice 5v5, portrait half-ice 5v5, and
+  whole-ice 2v1.
+- Added goalie trapezoid diagonal markings to whole and half ice.
+- Visibly grayed and disabled unavailable playback controls until a turn was
+  completed.
+- Added Version 3.1 storage migration and cumulative release validation.
+
+VERSION 3.2 — NET-CONTAINED GOALS, GOAL SIREN, AND RINK CORRECTIONS
+
+- Added goal-line and goal-mouth detection for recorded shots.
+- Stopped scoring shots inside the net so they no longer bounce from the end
+  boards back onto the ice.
+- Preserved pre-goal skater and goalie collision priority and loose rebounds.
+- Added an illuminated red goal lamp, rink flash, scoring-team GOAL! panel,
+  browser-generated goal siren, optional vibration, and timeline event tracking.
+- Corrected goalkeeper restricted-area markings to NHL Rule 1.8 proportions:
+  22 feet at the goal line and 28 feet at the end boards.
+- Made Whole ice the default view for fresh sessions and new boards.
+- Added Version 3.2 storage keys, Version 3.1 playbook migration, goal metadata,
+  updated validation, and cumulative release documentation.
+
+VERSION 3.3 — PASSING ON THE MOVE AND REVERSIBLE PLAYHEAD
+
+- Replaced the single per-player action restriction with independent Skating and
+  Puck lanes.
+- Allowed Move plus Pass and Move plus Shoot for the same player in one turn.
+- Added timed puck release from the carrier's recorded Move route.
+- Added At start, At end, Set from playhead, range-slider, and draggable orange
+  release-marker controls.
+- Added a turn-preview playhead for choosing a release moment before committing
+  the turn.
+- Recalculated the pass source from the moving passer's timed position.
+- Recalculated the endpoint to lead a moving receiver at the puck arrival time.
+- Kept possession with the passer until release, made the puck loose in flight,
+  and allowed both skaters to continue moving independently.
+- Added moving-player obstruction sampling for calculated pass routes.
+- Restricted automatic bank passes to candidates whose second leg is no longer
+  than the first leg.
+- Retained a straight pass when no bank satisfies that rule.
+- Made an obstructed straight-pass fallback stop at the blocker and finish loose.
+- Added true forward-and-backward playback-slider scrubbing with complete state
+  reconstruction.
+- Prevented the goal siren from repeating while the user scrubs across a goal,
+  while retaining the visual goal state.
+- Hid dotted player and turn-selection rings during playback and active
+  scrubbing, restoring them after Stop.
+- Added Version 3.3 browser-storage keys and migration from earlier sessions and
+  playbooks.
+- Updated the standalone package, 1920 x 1080 preview, TXT documentation,
+  cumulative version history, and release validation.
+
+
+VERSION 3.4 — PLAYBACK DOCK, DISPLAY OPTIONS, AND PLAYER COLORS
+
+- Kept Play / Stop, Restart, reversible scrubbing, speed, and Recorded routes
+  available in the bottom toolbar when Play Animator is hidden.
+- Added responsive dock behavior for desktop drawers and iPad-sized overlay
+  drawers.
+- Split rink-token display into independent Names, Numbers, Positions, and
+  Leadership roles checkboxes.
+- Added separate captain and alternate badges to rink tokens when Leadership is
+  enabled.
+- Added optional per-player primary and trim color overrides to every roster
+  entry.
+- Allowed player colors to be changed before or after loading a bench, with
+  immediate updates throughout the editor.
+- Added Team reset behavior so either or both player colors can return to live
+  team-color inheritance.
+- Persisted player colors and display options in sessions, saved plays,
+  playbooks, copied data, and JSON.
+- Added Version 3.4 storage keys and migration from Version 3.3 and earlier.
+- Updated the standalone package, preview, TXT documentation, cumulative
+  history, and release validation.
+
+END OF README
